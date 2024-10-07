@@ -30,8 +30,20 @@ public class CarTest {
     } // testCreateCarByInput
 
     @Test
-    @DisplayName("랜덤값이 생성되는지")
+    @DisplayName("0~9 사이 랜덤값이 생성되는지")
     void testRandomNumber() {
         assertThat(raceController.createRandomNumber()).isBetween(0, 9);
     } // testRandomNumber
+
+    @Test
+    @DisplayName("랜덤값이 4이상일 때 전진하는지")
+    void testMove() {
+        assertThat(raceController.checkMove(4)).isTrue();
+    } // testMove
+
+    @Test
+    @DisplayName("랜덤값이 4미만일 때 전진하지 않는지")
+    void testNotMove() {
+        assertThat(raceController.checkMove(3)).isFalse();
+    } // testMove
 } // class
