@@ -16,21 +16,9 @@ public class RaceController {
 
     public void runRacingCar() {
         outputView.printStartRace();
-        String[] carNames = checkValidCarName(inputView.inputCarNames());
+        String[] carNames = validator.getValidCarName(inputView.inputCarNames());
 
         outputView.printGetMoveCount();
-        int moveCount = getValidMoveCount(inputView.inputMoveCount());
+        int moveCount = validator.getValidMoveCount(inputView.inputMoveCount());
     } // runRacingCar
-
-    public String[] checkValidCarName(String inputCarNames) {
-        validator.doesSplitComma(inputCarNames);
-        validator.countCarName(inputCarNames);
-        validator.validCarNameLength(inputCarNames);
-
-        return inputCarNames.split(",");
-    } // checkValidCarName
-
-    public int getValidMoveCount(String inputMoveCount) {
-        return validator.validMoveCount(inputMoveCount);
-    } // getValidMoveCount
 } // class

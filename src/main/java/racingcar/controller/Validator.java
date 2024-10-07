@@ -3,6 +3,18 @@ package racingcar.controller;
 public class Validator {
     private static final boolean VALID = true;
 
+    public String[] getValidCarName(String inputCarNames) {
+        doesSplitComma(inputCarNames);
+        countCarName(inputCarNames);
+        validCarNameLength(inputCarNames);
+
+        return inputCarNames.split(",");
+    } // checkValidCarName
+
+    public int getValidMoveCount(String inputMoveCount) {
+        return validMoveCount(inputMoveCount);
+    } // getValidMoveCount
+
     public boolean doesSplitComma(String inputCarNames) {
         if (!inputCarNames.contains(",")) {
             throw new IllegalArgumentException("자동차 이름은 쉼표(,)로 구분되어야 합니다.");

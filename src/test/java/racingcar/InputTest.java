@@ -17,14 +17,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DisplayName("사용자 입력 테스트")
 public class InputTest {
     private Validator validator;
-    private RaceController raceController;
     private static final String INPUT_CAR_NAME = "pobi,woni,jun";
     private static final String INPUT_MOVE_COUNT = "3";
 
     @BeforeEach
     void init() {
         validator = new Validator();
-        raceController = new RaceController();
     } // init
 
     @Test
@@ -55,7 +53,7 @@ public class InputTest {
     @DisplayName("자동차 이름 입력 예외 테스트")
     @MethodSource("generateNameData")
     void testCarNameException(String input, String message) {
-        assertThatThrownBy(() -> raceController.checkValidCarName(input))
+        assertThatThrownBy(() -> validator.getValidCarName(input))
                 .isInstanceOf(IllegalArgumentException.class);
     } // testCarNameException
 
@@ -71,7 +69,7 @@ public class InputTest {
     @DisplayName("이동 회수 입력 예외 테스트")
     @MethodSource("generateMoveCountData")
     void testMoveCountException(String input, String message) {
-        assertThatThrownBy(() -> raceController.getValidMoveCount(input))
+        assertThatThrownBy(() -> validator.getValidMoveCount(input))
                 .isInstanceOf(IllegalArgumentException.class);
     } // testMoveCountException
 
