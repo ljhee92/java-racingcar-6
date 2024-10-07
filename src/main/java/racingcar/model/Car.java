@@ -16,8 +16,8 @@ public class Car {
         return position;
     }
 
-    public void setPosition(int randomNumber) {
-        if (randomNumber > 3) {
+    public void setPosition(boolean doesMove) {
+        if (doesMove) {
             this.position++;
         }
     }

@@ -49,10 +49,14 @@ public class RaceController {
         List<Car> cars = createCars(carNames);
         for (int i = 0; i < moveCount; i++) {
             for (Car car : cars) {
-                car.setPosition(createRandomNumber());
+                car.setPosition(checkMove(createRandomNumber()));
                 System.out.println(car.getName() + " : " + "-".repeat(car.getPosition()));
             } // end for
             System.out.println();
         } // end for
     } // move
+
+    public boolean checkMove(int randomNumber) {
+        return randomNumber > 3;
+    } // checkMove
 } // class
