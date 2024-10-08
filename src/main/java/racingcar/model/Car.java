@@ -16,8 +16,8 @@ public class Car {
         return position;
     }
 
-    public void setPosition(boolean doesMove) {
-        if (doesMove) {
+    public void setPosition(boolean canMove) {
+        if (canMove) {
             this.position++;
         }
     }
