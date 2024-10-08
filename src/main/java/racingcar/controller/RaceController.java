@@ -6,6 +6,7 @@ import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RaceController {
@@ -28,7 +29,10 @@ public class RaceController {
 
         outputView.displayMessage("");
         outputView.displayMessage("실행 결과");
-        move(carNames, moveCount);
+        List<Car> cars = move(carNames, moveCount);
+
+        List<Car> winners = selectWinner(cars);
+        displayWinner(winners);
     } // runRacingCar
 
     public List<Car> createCars(String[] carNames) {
@@ -46,8 +50,9 @@ public class RaceController {
         return Randoms.pickNumberInRange(0, 9);
     } // createRandomNumber
 
-    public void move(String[] carNames, int moveCount) {
+    public List<Car> move(String[] carNames, int moveCount) {
         List<Car> cars = createCars(carNames);
+
         for (int i = 0; i < moveCount; i++) {
             for (Car car : cars) {
                 car.setPosition(checkMove(createRandomNumber()));
@@ -55,9 +60,44 @@ public class RaceController {
             } // end for
             outputView.displayMessage("");
         } // end for
+
+        return cars;
     } // move
 
     public boolean checkMove(int randomNumber) {
         return randomNumber > 3;
     } // checkMove
+
+    public List<Car> selectWinner(List<Car> cars) {
+        Collections.sort(cars, (a, b) -> b.getPosition() - a.getPosition());
+
+        List<Car> winners = new ArrayList<>();
+        int winnerPosition = cars.get(0).getPosition();
+
+        for (Car car : cars) {
+            if (car.getPosition() == winnerPosition) {
+                winners.add(car);
+            } // end if
+        } // end for
+
+        return winners;
+    } // selectWinner
+
+    public void displayWinner(List<Car> winners) {
+        StringBuilder winnerNames = new StringBuilder("최종 우승자 : ");
+        String selectedWinnerNames = selectSoleOrJoint(winners);
+        winnerNames.append(selectedWinnerNames);
+        outputView.displayMessage(winnerNames.toString());
+    } // displayWinner
+
+    public String selectSoleOrJoint(List<Car> winners) {
+        StringBuilder winnerNames = new StringBuilder();
+
+        for (Car car : winners) {
+            winnerNames.append(car.getName() + ", ");
+        } // end for
+
+        winnerNames.setLength(winnerNames.length() - 2);
+        return winnerNames.toString();
+    } // displayJointWinner
 } // class
