@@ -20,13 +20,14 @@ public class RaceController {
     } // RaceController
 
     public void runRacingCar() {
-        outputView.printStartRace();
+        outputView.displayMessage("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
         String[] carNames = validator.getValidCarName(inputView.inputCarNames());
 
-        outputView.printGetMoveCount();
+        outputView.displayMessage("시도할 회수는 몇회인가요?");
         int moveCount = validator.getValidMoveCount(inputView.inputMoveCount());
 
-        outputView.printResult();
+        outputView.displayMessage("");
+        outputView.displayMessage("실행 결과");
         move(carNames, moveCount);
     } // runRacingCar
 
@@ -50,9 +51,9 @@ public class RaceController {
         for (int i = 0; i < moveCount; i++) {
             for (Car car : cars) {
                 car.setPosition(checkMove(createRandomNumber()));
-                System.out.println(car.getName() + " : " + "-".repeat(car.getPosition()));
+                outputView.displayMessage(car.getName() + " : " + "-".repeat(car.getPosition()));
             } // end for
-            System.out.println();
+            outputView.displayMessage("");
         } // end for
     } // move
 
