@@ -1,5 +1,8 @@
 package racingcar.controller;
 
+import racingcar.util.Message;
+import racingcar.util.Value;
+
 public class Validator {
     private static final boolean VALID = true;
 
@@ -8,7 +11,7 @@ public class Validator {
         countCarName(inputCarNames);
         validCarNameLength(inputCarNames);
 
-        return inputCarNames.split(",");
+        return inputCarNames.split(Message.SPLIT.print());
     } // checkValidCarName
 
     public int getValidMoveCount(String inputMoveCount) {
@@ -16,32 +19,32 @@ public class Validator {
     } // getValidMoveCount
 
     public boolean doesSplitComma(String inputCarNames) {
-        if (!inputCarNames.contains(",")) {
-            throw new IllegalArgumentException("자동차 이름은 쉼표(,)로 구분되어야 합니다.");
+        if (!inputCarNames.contains(Message.SPLIT.print())) {
+            throw new IllegalArgumentException(Message.CAR_NAME_SPLIT_ERROR.print());
         } // end if
         return VALID;
     } // doesSplitComma
 
     public boolean countCarName(String inputCarNames) {
-        if (inputCarNames.split(",").length > 5) {
-            throw new IllegalArgumentException("자동차 이름은 총 5대까지만 입력 가능합니다.");
+        if (inputCarNames.split(Message.SPLIT.print()).length > Value.CAR_COUNT_MAX.print()) {
+            throw new IllegalArgumentException(Message.CAR_COUNT_ERROR.print());
         } // end if
         return VALID;
     } // countCarName
 
     public boolean validCarNameLength(String inputCarNames) {
-        String[] carNames = inputCarNames.split(",");
+        String[] carNames = inputCarNames.split(Message.SPLIT.print());
         for (String carName : carNames) {
-            if (carName.length() > 5) {
-                throw new IllegalArgumentException("자동차 이름은 5자 이하만 입력 가능합니다.");
+            if (carName.length() > Value.CAR_NAME_LENGTH_MAX.print()) {
+                throw new IllegalArgumentException(Message.CAR_NAME_LENGTH_ERROR.print());
             } // end if
         } // end for
         return VALID;
     } // validCarNameLength
 
     public int validMoveCount(String inputMoveCount) {
-        if (!inputMoveCount.matches("^[1-5]*$")) {
-            throw new IllegalArgumentException("이동 회수는 1과 5 사이의 숫자만 입력 가능합니다.");
+        if (!inputMoveCount.matches(Message.ONE_TO_FIVE_NUMBER.print())) {
+            throw new IllegalArgumentException(Message.CAR_MOVE_COUNT_ERROR.print());
         } // end if
         return Integer.parseInt(inputMoveCount);
     } // validMoveCount

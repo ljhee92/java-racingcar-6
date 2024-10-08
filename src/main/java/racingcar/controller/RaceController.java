@@ -2,6 +2,8 @@ package racingcar.controller;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import racingcar.model.Car;
+import racingcar.util.Message;
+import racingcar.util.Value;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
@@ -21,14 +23,11 @@ public class RaceController {
     } // RaceController
 
     public void runRacingCar() {
-        outputView.displayMessage("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
+        outputView.displayMessage(Message.GAME_RESULT.print());
         String[] carNames = validator.getValidCarName(inputView.inputCarNames());
 
-        outputView.displayMessage("시도할 회수는 몇회인가요?");
+        outputView.displayMessage(Message.TRY_COUNT.print());
         int moveCount = validator.getValidMoveCount(inputView.inputMoveCount());
-
-        outputView.displayMessage("");
-        outputView.displayMessage("실행 결과");
         List<Car> cars = move(carNames, moveCount);
 
         List<Car> winners = selectWinner(cars);
@@ -47,7 +46,7 @@ public class RaceController {
     } // createCars
 
     public int createRandomNumber() {
-        return Randoms.pickNumberInRange(0, 9);
+        return Randoms.pickNumberInRange(Value.RANDOM_MIN.print(), Value.RANDOM_MAX.print());
     } // createRandomNumber
 
     public List<Car> move(String[] carNames, int moveCount) {
@@ -56,16 +55,16 @@ public class RaceController {
         for (int i = 0; i < moveCount; i++) {
             for (Car car : cars) {
                 car.setPosition(checkMove(createRandomNumber()));
-                outputView.displayMessage(car.getName() + " : " + "-".repeat(car.getPosition()));
+                outputView.displayMessage(car.getName() + Message.COLON.print() + Message.MOVE_BAR.print().repeat(car.getPosition()));
             } // end for
-            outputView.displayMessage("");
+            outputView.displayMessage(Message.LINE.print());
         } // end for
 
         return cars;
     } // move
 
     public boolean checkMove(int randomNumber) {
-        return randomNumber > 3;
+        return randomNumber > Value.MOVE_MIN.print();
     } // checkMove
 
     public List<Car> selectWinner(List<Car> cars) {
@@ -84,8 +83,9 @@ public class RaceController {
     } // selectWinner
 
     public void displayWinner(List<Car> winners) {
-        StringBuilder winnerNames = new StringBuilder("최종 우승자 : ");
+        StringBuilder winnerNames = new StringBuilder(Message.FINAL_WINNER.print());
         String selectedWinnerNames = selectSoleOrJoint(winners);
+
         winnerNames.append(selectedWinnerNames);
         outputView.displayMessage(winnerNames.toString());
     } // displayWinner
@@ -94,10 +94,10 @@ public class RaceController {
         StringBuilder winnerNames = new StringBuilder();
 
         for (Car car : winners) {
-            winnerNames.append(car.getName() + ", ");
+            winnerNames.append(car.getName() + Message.JOIN.print());
         } // end for
 
-        winnerNames.setLength(winnerNames.length() - 2);
+        winnerNames.setLength(winnerNames.length() - Value.LAST_TWO_CHAR.print());
         return winnerNames.toString();
     } // displayJointWinner
 } // class
