@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import racingcar.controller.RaceController;
+import racingcar.controller.WinnerController;
 import racingcar.model.Car;
 
 import java.util.Arrays;
@@ -16,18 +16,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("우승자 선정 테스트")
 public class WinnerTest {
-    private RaceController raceController;
+    private WinnerController winnerController;
 
     @BeforeEach
     void init() {
-        raceController = new RaceController();
+        winnerController = new WinnerController();
     } // init
 
     @ParameterizedTest(name = "{index} : {2}")
     @DisplayName("단독/공동 우승자 출력 형식")
     @MethodSource("generateData")
     void testWinner(List<Car> cars, String output, String message) {
-        assertThat(raceController.selectSoleOrJoint(cars)).isEqualTo(output);
+        assertThat(winnerController.selectSoleOrJoint(cars)).isEqualTo(output);
     } // testWinner
 
     static Stream<Arguments> generateData() {
