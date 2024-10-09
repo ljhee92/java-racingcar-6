@@ -16,13 +16,13 @@ public class WinnerController {
         this.outputView = new OutputView();
     } // WinnerController
 
-    public List<Car> selectWinner(List<Car> cars) {
-        Collections.sort(cars, (a, b) -> b.getPosition() - a.getPosition());
+    public List<Car> selectWinner(List<Car> movedCars) {
+        Collections.sort(movedCars, (a, b) -> b.getPosition() - a.getPosition());
 
         List<Car> winners = new ArrayList<>();
-        int winnerPosition = cars.get(0).getPosition();
+        int winnerPosition = movedCars.get(0).getPosition();
 
-        for (Car car : cars) {
+        for (Car car : movedCars) {
             if (car.getPosition() == winnerPosition) {
                 winners.add(car);
             } // end if
