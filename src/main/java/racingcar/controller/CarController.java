@@ -16,21 +16,6 @@ public class CarController {
         this.outputView = new OutputView();
     } // WinnerController
 
-    public List<Car> createCars(String[] carNames) {
-        List<Car> cars = new ArrayList<>();
-
-        for (String carName : carNames) {
-            Car car = new Car(carName);
-            cars.add(car);
-        } // end for
-
-        return cars;
-    } // createCars
-
-    public int createRandomNumber() {
-        return Randoms.pickNumberInRange(Value.RANDOM_MIN.print(), Value.RANDOM_MAX.print());
-    } // createRandomNumber
-
     public List<Car> move(String[] carNames, int moveCount) {
         List<Car> cars = createCars(carNames);
 
@@ -45,7 +30,22 @@ public class CarController {
         return cars;
     } // move
 
+    public List<Car> createCars(String[] carNames) {
+        List<Car> cars = new ArrayList<>();
+
+        for (String carName : carNames) {
+            Car car = new Car(carName);
+            cars.add(car);
+        } // end for
+
+        return cars;
+    } // createCars
+
     public boolean checkMove(int randomNumber) {
         return randomNumber > Value.MOVE_MIN.print();
     } // checkMove
+
+    public int createRandomNumber() {
+        return Randoms.pickNumberInRange(Value.RANDOM_MIN.print(), Value.RANDOM_MAX.print());
+    } // createRandomNumber
 } // class
