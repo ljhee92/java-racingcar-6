@@ -23,7 +23,7 @@ public class RaceController {
     } // RaceController
 
     public void runRacingCar() {
-        outputView.displayMessage(Message.GAME_RESULT.print());
+        outputView.displayMessage(Message.GAME_START.print());
         String[] carNames = validator.getValidCarName(inputView.inputCarNames());
 
         outputView.displayMessage(Message.TRY_COUNT.print());
